@@ -5,6 +5,8 @@ const { findUserById } = require("../db/auth-db.js");
 
 const verifyJWT = async (req, res, next) => {
   try {
+    console.log("Headers received:", req.headers);
+    console.log("Cookies received:", req.cookies);
     const token =
       req.cookies?.accessToken ||
       req.get["Authorization"]?.replace("Bearer ", "");
