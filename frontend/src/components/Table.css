@@ -1,0 +1,38 @@
+.table{
+    /* border: 1px solid red; */
+    height: 400px;
+    overflow-y: scroll;
+    
+}
+.table table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table th{
+    cursor: pointer;
+}
+.table th:hover{
+    background: #efefef;
+
+}
+.table td,.table th {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 15px;
+}
+.table tbody tr{
+    padding: 10px;
+}
+  
+th:first-child,
+td:first-child {
+  border-left: 0;
+}
+
+th:last-child,
+td:last-child {
+  border-right: 0;
+}
+.table tbody tr:nth-child(n+1):hover {
+    background: #efefef;
+}

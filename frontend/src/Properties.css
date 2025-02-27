@@ -1,0 +1,10 @@
+.properties {
+  /* border: 1px solid green; */
+  padding: 10px;
+  position: relative;
+}
+.properties .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}

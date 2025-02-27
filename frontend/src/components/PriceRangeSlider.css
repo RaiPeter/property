@@ -1,0 +1,29 @@
+.price-range-container {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .label {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 5px;
+  }
+  
+  .price-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .rc-slider-handle {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  
+  .rc-slider-handle:active,
+  .rc-slider-handle:focus {
+    box-shadow: 0 0 5px rgba(255, 90, 60, 0.6);
+  }
+  

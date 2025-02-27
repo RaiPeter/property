@@ -1,0 +1,133 @@
+.revenue-card{
+    border: 1px solid grey;
+    width: 35%;
+    /* max-height: 300px; */
+    padding: 10px;
+    border-radius: 10px;
+}
+.revenue-card .revenue-balance{
+    /* border: 1px solid green; */
+}
+
+.revenue-card .revenue-balance p{
+    font-size: 1.2em;
+    padding:  5px 0 15px 0;
+    
+}
+.revenue-card .revenue-amount{
+    /* border: 1px solid green; */
+}
+.revenue-card .revenue-amount h3{
+    font-size: 1.5em;
+    padding: 5px 0 5px 0;
+    
+}
+.revenue-card .revenue-small-cards{
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;   
+    padding: 5px 0 5px 0;
+    margin-bottom: 15px;
+}
+.revenue-card .revenue-small-cards .income-card,
+.revenue-card .revenue-small-cards .expense-card{
+    display: flex;
+    /* justify-content: space-between; */
+    /* border: 1px solid red; */
+    width: 45%;
+    
+}
+.revenue-card .revenue-small-cards .income-card .income-card-icon,
+.revenue-card .revenue-small-cards .expense-card .expense-card-icon{
+    border: 1px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+.revenue-card .revenue-small-cards .income-card .income-card-details,
+.revenue-card .revenue-small-cards .expense-card .expense-card-details {
+    margin-left: 15px;
+}
+.revenue-card .revenue-small-cards .income-card .income-card-details h4,
+.revenue-card .revenue-small-cards .expense-card .expense-card-details h4{
+    font-size: 1.125em;
+    font-weight: 600;
+    
+}
+.revenue-card .revenue-small-cards .income-card .income-card-details p,
+.revenue-card .revenue-small-cards .expense-card .expense-card-details p{
+
+}
+
+.revenue-card .revenue-property,
+.revenue-card .revenue-revenue,
+.revenue-card .revenue-customer{
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid green; */
+    margin-bottom: 15px;
+
+}
+.revenue-card .revenue-property .revenue-property-icon,
+.revenue-card .revenue-revenue .revenue-revenue-icon,
+.revenue-card .revenue-customer .revenue-customer-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+.revenue-card .revenue-property .revenue-property-details,
+.revenue-card .revenue-revenue .revenue-revenue-details,
+.revenue-card .revenue-customer .revenue-customer-details{
+    width: 85%;
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-head,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-head,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-head{
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid green; */
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-head h4,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-head h4,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-head h4{
+    font-size: 1.125em;
+    font-weight: 500;
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-head p,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-head p,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-head p{
+    font-size: 1.125em;
+    font-weight: 500;
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-progressbar,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-progressbar,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-progressbar{
+    /* border: 1px solid green; */
+    /* height: 10px */
+    height: 15px;
+    display: flex;
+    align-items: center;
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-progressbar progress,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-progressbar progress,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-progressbar progress{
+    accent-color: rgba(254, 98, 59, 1);
+    /* background: gray; */
+    width: 100%;
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-progressbar progress::-webkit-progress-bar,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-progressbar progress::-webkit-progress-bar,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-progressbar progress::-webkit-progress-bar {
+    background: rgb(52, 3, 3);
+}
+.revenue-card .revenue-property .revenue-property-details .revenue-property-update p,
+.revenue-card .revenue-revenue .revenue-revenue-details .revenue-revenue-update p,
+.revenue-card .revenue-customer .revenue-customer-details .revenue-customer-update p{
+    font-size: 0.9em;
+}

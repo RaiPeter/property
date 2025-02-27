@@ -1,0 +1,85 @@
+.add-property{
+    /* border: 1px solid red; */
+    padding: 5px;
+}
+.property-row{
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid green; */
+    margin-bottom: 10px;
+}
+.property-row .property-field{
+    display: flex;
+    flex-direction: column;
+}
+.property-row .property-field input{
+    min-width: 290px;
+    outline: none;
+    font-size: 1.1em ;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.property-row .property-field select{
+    min-width: 200px;
+    outline: none;
+    font-size: 1.1em ;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+.property-row .property-field .features{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.property-row .property-field .features label{
+    width: 150px;
+    display: flex;
+}
+.property-row .property-field .features label input{
+    min-width: 30px;
+    display: flex;
+}
+
+
+
+.property-row .property-field-textarea{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.property-row .property-field-textarea textarea{ 
+    outline: none;
+    font-size: 1.3em;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    height: 100px;
+    resize: none;
+}
+.buttons{
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+}
+.buttons button {
+    outline: none;
+    border: 1px solid grey;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+.buttons .cancel{
+    background-color: white;
+    color: black;
+}
+.buttons .submit{
+    background-color: rgba(254, 98, 59, 1);
+    color: white;
+}

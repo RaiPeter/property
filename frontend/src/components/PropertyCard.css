@@ -1,0 +1,57 @@
+.property-card{
+    border: 1px solid green;
+    width: 32%;
+    height: 290px;
+    border-radius: 10px;
+}
+.property-card .image{
+    width: 100%;
+    height: 150px;
+}
+.property-card .image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.property-card .price{
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+}
+.property-card .price > p:first-child {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+.property-card h4{
+    font-weight: 500;
+    padding: 5px;
+}
+.property-card .features{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding: 5px;
+
+}
+.property-card .features div{
+    border: 1px solid grey;
+    width: 30%;
+}
+/* Enable View Transition Animations */
+
+.property-card::view-transition-old,
+.property-card::view-transition-new {
+  animation-duration: 1s;
+  opacity: 1;
+}
+
+/* Fade out old elements */
+.property-card::view-transition-old {
+  opacity: 0;
+}
+
+/* Fade in new elements */
+.property-card::view-transition-new {
+  opacity: 1;
+}

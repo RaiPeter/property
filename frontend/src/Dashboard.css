@@ -1,0 +1,70 @@
+.sidebars .sidebar {
+    width: 20%;
+    border: 1px solid rgb(136, 136, 136);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.company-logo{
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+.company-logo img{
+ object-fit: contain;
+ height: 100%;
+ width: 75%;
+
+
+}
+.sidebars{
+    display: flex;
+    justify-content: right;
+    /* background-color: rgb(228, 228, 228); */
+}
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+}
+.sidebar .dashboard-links{
+    width: 95%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.sidebars .right-side{
+    margin-top: 80px;
+    /* border: 1px solid green; */
+    width: 78%;
+    height: 90vh;
+    margin-right: 20px;
+}
+.right-side .top-nav{
+    /* border: 1px solid grey; */
+    position: absolute;
+    margin-top: -80px;
+    margin-left: -11px;
+    border-bottom: 1px solid grey;
+    width: 80%;
+    height: 70px;
+}
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+}
+.top-nav .left-menu{
+    /* border: 1px solid blue; */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right-side .outlet-page{
+    margin-top: 10px;
+    /* border: 1px solid green; */
+}

@@ -1,0 +1,36 @@
+services:
+  frontend:
+    build: ./frontend
+    ports: ['3000:3000']
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /usr/src/app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./frontend/package.json
+  backend:
+    build: ./backend
+    ports: ['8000:3000','9229:9229']
+    volumes:
+      - backend_images:/usr/src/app/public/property-images
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./backend
+          target: /usr/src/app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./backend/package.json
+  mongo:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    volumes:
+      - mongodb_volume:/data/db
+    ports:
+      - 27018:27017
+volumes:
+  mongodb_volume:
+  backend_images:

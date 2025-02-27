@@ -1,0 +1,7 @@
+# Ignore node_modules and environment files
+frontend/node_modules/
+backend/node_modules/
+.env
+.DS_Store
+dist/
+build/
