@@ -11,7 +11,7 @@ const PropertyCard = ({name,price,status,bedrooms,bathrooms,features,image, id})
         <img src={imageUrl} alt={name} />
       </div>
       <div className="price">
-        <p>{price}</p>
+        <p>{price.toLocaleString()}</p>
         <p>{status}</p>
       </div>
       <h4>{name}</h4>

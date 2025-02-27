@@ -1,10 +1,11 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/index.js");
+const { User } = require("../models/Property.js");
 const { findUserById } = require("../db/auth-db.js");
 
 const verifyJWT = async (req, res, next) => {
   try {
+    console.log("Cookies received:", req.cookies);
     const token =
       req.cookies?.accessToken ||
       req.get("Authorization")?.replace("Bearer ", "");
