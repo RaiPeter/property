@@ -233,25 +233,25 @@ const PropertyList = () => {
       <div className="row">
         <Card
           name="Total Property"
-          amount="5467"
+          amount={propertiesStats.totalProperties}
           update="-3.27"
           imgSrc={PropertyIcon}
         />
         <Card
           name="Properties Available"
-          amount="5467"
+          amount={propertiesStats.availableProperties}
           update="-3.27"
           imgSrc={PropertyIcon}
         />
         <Card
           name="Properties Sold"
-          amount="5467"
+          amount={propertiesStats.soldProperties}
           update="-3.27"
           imgSrc={PropertyIcon}
         />
         <Card
           name="Total Income"
-          amount="5467"
+          amount={propertiesStats.totalIncome.toLocaleString()}
           update="-3.27"
           imgSrc={PropertyIcon}
         />

@@ -11,7 +11,7 @@ const {
 } = require("../utils/generateToken.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/index.js");
+const { User } = require("../models/User.js");
 
 const createUserService = async (data) => {
   try {
