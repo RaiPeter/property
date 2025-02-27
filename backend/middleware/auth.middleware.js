@@ -7,7 +7,7 @@ const verifyJWT = async (req, res, next) => {
   try {
     const token =
       req.cookies?.accessToken ||
-      req.get("Authorization")?.replace("Bearer ", "");
+      req.get["Authorization"]?.replace("Bearer ", "");
     if (!token) {
       return res.status(400).json({ message: "No token provided" });
     }
