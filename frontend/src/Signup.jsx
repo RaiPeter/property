@@ -20,7 +20,7 @@ const Signup = () => {
 
     try {
       const { data } = await axiosInstance.post("/auth/signup", data1);
-      navigate("/login");
+      navigate("/");
       console.log("Form Submitted",data);
     } catch (error) {
       console.error(

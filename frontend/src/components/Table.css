@@ -1,8 +1,7 @@
 .table{
     /* border: 1px solid red; */
-    height: 400px;
     overflow-y: scroll;
-    
+    height: 100%;
 }
 .table table{
     width: 100%;
@@ -10,6 +9,11 @@
 }
 .table th{
     cursor: pointer;
+    font-size: 1.3em;
+}
+.table th svg{
+    margin-left: 15px;
+    font-size: 0.8em;
 }
 .table th:hover{
     background: #efefef;
@@ -22,6 +26,7 @@
 }
 .table tbody tr{
     padding: 10px;
+    cursor: pointer;
 }
   
 th:first-child,
@@ -33,6 +38,6 @@ th:last-child,
 td:last-child {
   border-right: 0;
 }
-.table tbody tr:nth-child(n+1):hover {
+.table tbody  tr:nth-child(n+1):hover {
     background: #efefef;
 }

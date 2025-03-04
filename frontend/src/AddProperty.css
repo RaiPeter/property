@@ -2,6 +2,10 @@
     /* border: 1px solid red; */
     padding: 5px;
 }
+.add-property .container{
+    max-width: 900px;
+    margin: auto;
+}
 .property-row{
     display: flex;
     justify-content: space-between;

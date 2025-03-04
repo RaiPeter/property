@@ -1,19 +1,12 @@
 const {
   createProperty,
   getProperties,
-  getAllProperties,
-  getAvailableProperties,
-  getSoldProperties,
-  getIncomeFromSoldProperties,
-  getLastMonthProperties,
+  getPropertyDetails,
 } = require("../db/property-db");
 
 const createPropertyService = async (data) => {
   try {
-    const savedProperty = await createProperty({
-      ...data.body,
-      property_image: data.file.filename,
-    });
+    const savedProperty = await createProperty(data);
     return savedProperty;
   } catch (e) {
     console.error("Error saving property:", e);
@@ -21,10 +14,10 @@ const createPropertyService = async (data) => {
   }
 };
 
-const getPropertiesService = async (filter) => {
+const getPropertiesService = async () => {
   try {
-    const properties = await getProperties(filter);
-    console.log("Properties returned:", properties.length);
+    const properties = await getProperties();
+    console.log("Properties returned:", properties);
 
     return properties;
   } catch (error) {
@@ -33,28 +26,19 @@ const getPropertiesService = async (filter) => {
   }
 };
 
-const getPropertiesStatsService = async () => {
-  try {
-    const totalProperties = await getAllProperties();
-    const availableProperties = await getAvailableProperties();
-    const soldProperties = await getSoldProperties();
-    const totalIncome = await getIncomeFromSoldProperties();
-    const lastMonthProperties = await getLastMonthProperties();
-    return {
-      totalProperties,
-      availableProperties,
-      soldProperties,
-      totalIncome,
-      lastMonthProperties,
-    };
-  } catch (e) {
-    console.error("Error fetching stats");
+const getPropertyDetailsService = async (data) => {
+  try{
+    const propertyDetails = await getPropertyDetails(data);
+    console.log(propertyDetails,"details or");
+    
+    return propertyDetails;
+  }catch(e){
+    console.error("Error fetching property details");
     throw e;
   }
-};
-
+}
 module.exports = {
   createPropertyService,
   getPropertiesService,
-  getPropertiesStatsService,
+  getPropertyDetailsService
 };

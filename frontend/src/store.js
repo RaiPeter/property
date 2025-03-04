@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from "./features/slices/authSlice";
+import propertyReducer from "./features/slices/propertiesSlice"
 
 // Load persisted state from localStorage
 const loadState = () => {
@@ -24,7 +25,8 @@ const saveState = (state) => {
 
 const store = configureStore({
   reducer: {
-    auth: authReducer
+    auth: authReducer,
+    properties : propertyReducer
   },
   preloadedState: loadState(),
 })

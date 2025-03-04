@@ -13,9 +13,10 @@ services:
           path: ./frontend/package.json
   backend:
     build: ./backend
-    ports: ['8000:3000','9229:9229']
+    ports: ['8000:3000']
     volumes:
-      - backend_images:/usr/src/app/public/property-images
+      # - ./backend:/usr/src/app
+      - property_images:/usr/src/app/public/property-images
     develop:
       watch:
         - action: sync+restart
@@ -28,9 +29,9 @@ services:
   mongo:
     image: mongodb/mongodb-community-server:6.0-ubi8
     volumes:
-      - mongodb_volume:/data/db
+      - mongodbs_volume:/data/db
     ports:
       - 27018:27017
 volumes:
-  mongodb_volume:
-  backend_images:
+  mongodbs_volume:
+  property_images:

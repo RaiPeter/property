@@ -1,82 +1,144 @@
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome/'
-import { 
-    faSort} from "@fortawesome/free-solid-svg-icons";import "./Table.css"
+import React, { useState, useEffect, useMemo } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router";
+import "./Table.css";
 
-    const getStatusStyle = (status) => {
-        switch (status.toLowerCase()) {
-          case "paid":
-            return { backgroundColor: "#E6FAEE", color: "#50926E", padding: "5px 20px",  fontWeight: "bold",textTransform: "capitalize" }; // Green
-          case "cancelled":
-            return { backgroundColor: "#FFECEE", color: "#B32538", padding: "5px 20px", fontWeight: "bold",textTransform: "capitalize" }; // Yellow
-          default:
-            return {};
-        }
-      };
-      
+const Table = ({ data }) => {
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const navigate = useNavigate();
 
-const Table = ({ rows }) => {
-    const [sortedRows , setRows] =useState(rows);
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  // Memoize sortedRows to prevent unnecessary re-renders
+  const sortedRows = useMemo(() => {
+    if (!data || data.length === 0) return [];
 
-    
-    const sortData = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-        direction = "desc";
+    const sortedData = [...data];
+    if (!sortConfig.key) return sortedData;
+
+    sortedData.sort((a, b) => {
+      let aValue, bValue;
+
+      if (sortConfig.key === "_id") {
+        aValue = a._id;
+        bValue = b._id;
+        return sortConfig.direction === "asc"
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
       }
 
-    const sortedData = [...sortedRows].sort((a,b) =>{
-        if (typeof a[key] === "number") {
-            return direction === "asc" ? a[key] - b[key] : b[key] - a[key];
-          } else {
-            return direction === "asc"
-              ? a[key].toString().localeCompare(b[key].toString())
-              : b[key].toString().localeCompare(a[key].toString());
-          }
-    })
-    setRows(sortedData);
-    setSortConfig({ key, direction });
-    };
+      if (sortConfig.key === "land_range") {
+        aValue = a.landDistribution.reduce(
+          (sum, land) => sum + parseFloat(land.land_range || 0),
+          0
+        );
+        bValue = b.landDistribution.reduce(
+          (sum, land) => sum + parseFloat(land.land_range || 0),
+          0
+        );
+        return sortConfig.direction === "asc" ? aValue - bValue : bValue - aValue;
+      }
 
-    return (
-    <div className='table'>
+      if (sortConfig.key === "totalProperties") {
+        aValue = a.landDistribution.reduce(
+          (sum, land) => sum + (land.totalProperties || 0),
+          0
+        );
+        bValue = b.landDistribution.reduce(
+          (sum, land) => sum + (land.totalProperties || 0),
+          0
+        );
+        return sortConfig.direction === "asc" ? aValue - bValue : bValue - aValue;
+      }
+
+      return 0;
+    });
+
+    return sortedData;
+  }, [data, sortConfig]);
+
+  const handleSort = (key) => {
+    setSortConfig((prev) => ({
+      key,
+      direction:
+        prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  };
+
+  // Aggregate data for each row for display
+  const getRowData = (row) => {
+    const landRanges = row.landDistribution
+      .map((land) => land.land_range)
+      .join(", ") || "N/A";
+    const totalProperties = row.landDistribution.reduce(
+      (sum, land) => sum + (land.totalProperties || 0),
+      0
+    );
+
+    return { landRanges, totalProperties };
+  };
+
+  return (
+    <div className="table">
       <table>
         <thead>
-            <tr>
-                {Object.keys(rows[0])
-                .filter((key) => key !== "id")
-                .map((key,index) =>(
-                    <th key={key} onClick={()=>sortData(key)}>
-                        {key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())} {<FontAwesomeIcon icon={faSort} size='xs'/>}
-                    </th>
-                ))}
-            </tr>
+          <tr>
+            <th onClick={() => handleSort("land_range")}>
+              Land (in Kattha)
+              <FontAwesomeIcon
+                icon={
+                  sortConfig.key === "land_range"
+                    ? sortConfig.direction === "asc"
+                      ? faSortUp
+                      : faSortDown
+                    : faSort
+                }
+              />
+            </th>
+            <th onClick={() => handleSort("_id")}>
+              Location
+              <FontAwesomeIcon
+                icon={
+                  sortConfig.key === "_id"
+                    ? sortConfig.direction === "asc"
+                      ? faSortUp
+                      : faSortDown
+                    : faSort
+                }
+              />
+            </th>
+            <th onClick={() => handleSort("totalProperties")}>
+              Total no. of Lands
+              <FontAwesomeIcon
+                icon={
+                  sortConfig.key === "totalProperties"
+                    ? sortConfig.direction === "asc"
+                      ? faSortUp
+                      : faSortDown
+                    : faSort
+                }
+              />
+            </th>
+          </tr>
         </thead>
         <tbody>
-            {sortedRows.map((row,index)=>(
-                <tr key={index}>
-                    <td className="orders-cell">
-                    <img src={row.image} alt={row.orders} className="profile-pic" />
-                <div>
-                  <p className="order-name">{row.orders}</p>
-                  <p className="order-id">#{row.id}</p>
-                </div>
-              </td>
-              <td>{row.date}</td>
-              <td>{row.property_type}</td>
-              <td>{row.property_name}</td>
-              <td>
-                <span style={getStatusStyle(row.status)}>{row.status}</span>
-              </td>
-              <td className="price-cell">${row.price.toLocaleString()}</td>
-                </tr>
-            ))
-            }
+          {sortedRows.map((row) => {
+            const { landRanges, totalProperties } = getRowData(row);
+
+            return (
+              <tr
+                key={row._id}
+                onClick={() => navigate(`./${row._id}`)}
+              >
+                <td>{landRanges}</td>
+                <td>{row._id}</td>
+                <td>{totalProperties}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default Table
+export default Table;

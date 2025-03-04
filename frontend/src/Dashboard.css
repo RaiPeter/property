@@ -1,70 +1,80 @@
-.sidebars .sidebar {
-    width: 20%;
-    border: 1px solid rgb(136, 136, 136);
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-}
-.company-logo{
-    /* border: 1px solid green; */
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-}
-.company-logo img{
- object-fit: contain;
- height: 100%;
- width: 75%;
-
-
-}
-.sidebars{
-    display: flex;
-    justify-content: right;
-    /* background-color: rgb(228, 228, 228); */
-}
-.sidebar{
-    display: flex;
-    flex-direction: column;
-    /* align-content: center; */
-}
-.sidebar .dashboard-links{
-    width: 95%;
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-}
-.sidebars .right-side{
-    margin-top: 80px;
-    /* border: 1px solid green; */
-    width: 78%;
-    height: 90vh;
-    margin-right: 20px;
-}
-.right-side .top-nav{
-    /* border: 1px solid grey; */
-    position: absolute;
-    margin-top: -80px;
-    margin-left: -11px;
-    border-bottom: 1px solid grey;
-    width: 80%;
-    height: 70px;
-}
-.top-nav {
-    display: flex;
-    justify-content: space-between;
-}
-.top-nav .left-menu{
-    /* border: 1px solid blue; */
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.body{
+  height: 100vh;
+}/* The side navigation menu */
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
 }
 
-.right-side .outlet-page{
-    margin-top: 10px;
-    /* border: 1px solid green; */
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+#main {
+  transition: margin-left 0.5s;
+  /* padding: 20px; */
+}
+#main .navbar{
+  height: 80px;
+  background-color: #4C1D95;
+}
+#main .navbar{
+  display: flex;
+  justify-content: space-between;
+}
+#main .navbar > div:first-child{
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  width: 250px;
+  }
+#main .navbar > div:first-child > img{
+  width: 100%;
+  }
+#main .navbar > div:nth-child(2){
+  /* background-color: brown; */
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+#main .navbar > div:nth-child(2) a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.3em;
+
+}
+
+
+
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
 }
