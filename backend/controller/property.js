@@ -3,6 +3,7 @@ const PropertyOwner = require("../models/PropertyOwner");
 const {
   getPropertyOwnerService,
   createPropertyOwnerService,
+  getPropertyOwnersService,
 } = require("../services/property.owner.service");
 const {
   getPropertiesService,
@@ -120,8 +121,18 @@ const getPropertyDetails = async (req,res, next) => {
     return res.status(500).json({ message: e.message });
   }
 }
+
+const getPropertyOwners = async (req,res,next) => {
+  try{
+    const propertyOwners = await getPropertyOwnersService();
+    return res.status(200).json(propertyOwners);
+  }catch(e) {
+    return res.status(500).json({message : e.message})
+  }
+}
 module.exports = {
   postProperty,
   getProperties,
-  getPropertyDetails
+  getPropertyDetails,
+  getPropertyOwners
 };

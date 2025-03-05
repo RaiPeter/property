@@ -27,7 +27,7 @@
 }
 
 .property-row .property-field select{
-    min-width: 200px;
+    min-width: 290px;
     outline: none;
     font-size: 1.1em ;
     border: 1px solid grey;

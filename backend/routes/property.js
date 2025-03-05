@@ -1,7 +1,7 @@
 const express = require("express");
 
 //some controller
-const { postProperty, getProperties, getPropertyDetails } = require("../controller/property");
+const { postProperty, getProperties, getPropertyDetails, getPropertyOwners } = require("../controller/property");
 const { verifyJWT } = require("../middleware/auth.middleware");
 const verifyRolesAndPermissions = require("../middleware/role.middleware");
 const { upload } = require("../middleware/multer.middleware");
@@ -23,6 +23,7 @@ router.post(
 router.get("/properties", verifyJWT, getProperties);
 router.get("/property/:location", verifyJWT, getPropertyDetails);
 
+router.get("/owners", verifyJWT, getPropertyOwners)
 
 
 module.exports = router;

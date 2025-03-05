@@ -189,6 +189,6 @@ async function testUrls() {
   }
 }
 
-testUrls();
+// testUrls();
 
 module.exports = { getEmbedMapUrl };

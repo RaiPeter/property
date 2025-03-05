@@ -1,6 +1,6 @@
 const {
   createPropertyOwner,
-  getPropertyOwner,
+  getPropertyOwners,
 } = require("../db/property-owner-db");
 
 const createPropertyOwnerService = async (data) => {
@@ -26,19 +26,21 @@ const getPropertyOwnerService = async (data) => {
     throw e;
   }
 };
-//   const getPropertiesService = async (filter) => {
-//     try {
-//       const properties = await getProperties(filter);
-//       console.log("Properties returned:", properties.length);
 
-//       return properties;
-//     } catch (error) {
-//       console.error("Error fetching properties");
-//       throw e;
-//     }
-//   };
+const getPropertyOwnersService = async () => {
+  try {    
+    const propertyOwners = await getPropertyOwners();
+    console.log(propertyOwners, "asdf");
+    
+    return propertyOwners;
+  } catch (e) {
+    console.error("Error getting property owners");
+    throw e;
+  }
+}
 
 module.exports = {
   createPropertyOwnerService,
-  getPropertyOwnerService
+  getPropertyOwnerService,
+  getPropertyOwnersService
 };
