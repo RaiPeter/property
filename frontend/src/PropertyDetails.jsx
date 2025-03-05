@@ -41,6 +41,9 @@ const PropertyDetails = () => {
             </div>
           </div>
         </div>
+        <div>
+          <h3>Land area : {currentProperty?.land_area} (in kattha)</h3>
+        </div>
         <div className="location-map">
             <h3>Location : {currentProperty?.location}</h3>
             <MapEmbed embedUrl={`${currentProperty?.maps_link}`} />

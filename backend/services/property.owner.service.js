@@ -1,5 +1,6 @@
 const {
   createPropertyOwner,
+  getPropertyOwner,
   getPropertyOwners,
 } = require("../db/property-owner-db");
 

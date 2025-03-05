@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const MapEmbed = ({ embedUrl }) => (
-  <div style={{ width: "100%", height: "250px", border: "1px solid #ccc" }}>
+  <div style={{ width: "100%", height: "450px", border: "1px solid #ccc" }}>
     {embedUrl ? (
       <iframe
         src={embedUrl}

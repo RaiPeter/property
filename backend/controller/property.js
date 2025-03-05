@@ -74,7 +74,7 @@ const postProperty = async (req, res, next) => {
 
     // Create new property (shared logic for new or existing owner)
     const property = new Property({
-      owner_id: owner._id,
+      owner_id: owner?._id,
       land_area: property_area,
       maps_link: embedUrl,
       khatiyan_image: req.files.khatiyan_img[0].filename,
