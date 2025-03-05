@@ -44,7 +44,7 @@ const postProperty = async (req, res, next) => {
     let owner = await getPropertyOwnerService({ name: property_owner_name });
     console.log(owner, "owenasd");
 
-    if (!owner || owner !== null) {
+    if (!owner) {
       // Create a new landowner if not exists
       owner = new PropertyOwner({
         name: property_owner_name,
@@ -54,41 +54,41 @@ const postProperty = async (req, res, next) => {
       });
       owner = await createPropertyOwnerService(owner);
     }
+
     if (!owner?._id) {
-      return res.status(500).json({ message: "Failed to create owner." });
+      return res.status(500).json({ message: "Failed to create or retrieve owner." });
     }
-    // for map link
 
-    let embedResult = getEmbedMapUrl(property_embed_map_link);
-
-    if (embedResult.shortUrl) {
-      // If it's a short link, expand it first
-      const expandedUrl = await expandShortUrl(embedResult.shortUrl);
-      if (!expandedUrl)
-        return res.status(400).json({ error: "Failed to expand short URL" });
-
-      embedResult = getEmbedMapUrl(expandedUrl);
+    // Generate embed map URL (for both new and existing owners)
+    let embedResult = await getEmbedMapUrl(property_embed_map_link);
+    if (!embedResult.embedUrl) {
+      return res.status(400).json({
+        message: "Failed to generate embed map URL",
+        error: embedResult.error || "Unknown error",
+        finalUrl: embedResult.finalUrl,
+      });
     }
-    console.log("embned", embedResult);
+    const embedUrl = embedResult.embedUrl;
+    console.log("Generated embed URL:", embedUrl);
 
-    // return res.json(embedResult);
+    // Create new property (shared logic for new or existing owner)
     const property = new Property({
-      owner_id: owner?._id,
+      owner_id: owner._id,
       land_area: property_area,
-      maps_link: embedResult.embedUrl,
-      // maps_link : property_embed_map_link,
-      khatiyan_image: req.files?.khatiyan_img[0]?.filename,
-      siteplan_image: req.files?.siteplan_img[0]?.filename,
+      maps_link: embedUrl,
+      khatiyan_image: req.files.khatiyan_img[0].filename,
+      siteplan_image: req.files.siteplan_img[0].filename,
       location: property_location,
     });
-    console.log(property, " proerty asdf");
+    console.log("Property to save:", property);
 
     const savedProperty = await createPropertyService(property);
     console.log("Property Saved:", savedProperty);
 
-    // Link land to owner
+    // Link property to owner
     owner.lands_owned.push(savedProperty._id);
     await owner.save();
+    console.log("Owner updated with new property:", owner);
 
     return res.status(201).json(savedProperty);
   } catch (e) {
