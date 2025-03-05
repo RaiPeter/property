@@ -1,8 +1,18 @@
 .location{
-    border :1px solid red
+    height: 100vh;
+    color: var(--text);
 }
 .location .container{
     max-width: 900px;
     margin: auto;
-    border: 1px solid green;
+}
+.location .container .top{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+
+}
+.location .container .location-details > div{
+    display: flex;
+    margin-bottom: 15px;
 }

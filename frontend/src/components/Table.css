@@ -1,11 +1,17 @@
 .table{
-    /* border: 1px solid red; */
-    overflow-y: scroll;
-    height: 100%;
+    margin-top: 20px;
+    border: 1px solid var(--table-border);
+    border-radius: 10px;
+    height: 400px;
+    /* background: var(--card-bg); */
+  transition: all 0.3s ease;
+  overflow-y: scroll;
+  color: var(--text);
 }
 .table table{
     width: 100%;
     border-collapse: collapse;
+    /* background: var(--table-bg);  */
 }
 .table th{
     cursor: pointer;
@@ -16,13 +22,13 @@
     font-size: 0.8em;
 }
 .table th:hover{
-    background: #efefef;
-
+    background: var(--table-hover);
 }
 .table td,.table th {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid var(--table-cell-border);;
     text-align: left;
     padding: 15px;
+    color: var(--table-text); /* Use table-specific text color */
 }
 .table tbody tr{
     padding: 10px;
@@ -39,5 +45,5 @@ td:last-child {
   border-right: 0;
 }
 .table tbody  tr:nth-child(n+1):hover {
-    background: #efefef;
+    background: var(--table-hover);
 }

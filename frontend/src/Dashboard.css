@@ -1,5 +1,6 @@
 .body{
-  height: 100vh;
+  background: var(--background);
+  font-family: Inter, monospace;
 }/* The side navigation menu */
 .sidenav {
   height: 100%;
@@ -8,7 +9,8 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background: var(--sidenav-bg);
+  /* background-color: #111; */
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.5s;
@@ -19,12 +21,12 @@
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: var(--sidenav-text);;
   display: block;
   transition: 0.3s;
 }
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: var(--sidenav-hover);
 }
 .sidenav .closebtn {
   position: absolute;
@@ -32,14 +34,14 @@
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
+  cursor: pointer;
 }
 #main {
   transition: margin-left 0.5s;
-  /* padding: 20px; */
 }
 #main .navbar{
   height: 80px;
-  background-color: #4C1D95;
+  background-color: var(--primary);;
 }
 #main .navbar{
   display: flex;
@@ -62,11 +64,27 @@
 }
 #main .navbar > div:nth-child(2) a {
   text-decoration: none;
-  color: white;
+  color: var(--button-text);
   font-size: 1.3em;
 
 }
 
+/* Theme toggle button */
+.theme-toggle {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  margin-left: 20px;
+}
+
+.theme-toggle:hover {
+  opacity: 0.9;
+}
 
 
 

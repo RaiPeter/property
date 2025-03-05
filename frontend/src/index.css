@@ -1,6 +1,46 @@
+/* Define CSS variables with #4C1D95 as primary */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --primary-color : green;
+  /* Light theme */
+  --primary: #4C1D95;        /* Your purple */
+  --background: #ffffff;
+  --text: #333333;
+  --card-bg: #f8f5ff;        /* Light purple-tinted background */
+  --card-border: #e0d4ff;    /* Lighter purple shade */
+  --button-bg: #4C1D95;      /* Using primary color */
+  --button-text: #ffffff;
+  --sidenav-bg: #f8f5ff;
+  --sidenav-text: #4C1D95;
+  --sidenav-hover: #333333;
+  --table-border: #dcdcdc;
+  --table-hover: #eaeaea;
+  --table-cell-border: #dddddd;
+  --input-border: #808080;    /* Grey for input borders */
+  --submit-button-bg: rgba(254, 98, 59, 1); /* Orange for submit button */
+  --cancel-button-bg: #ffffff; /* White for cancel button */
+  --cancel-button-text: #000000;
+}
+
+[data-theme='dark'] {
+  /* Dark theme */
+  --primary: #191919;        /* Same primary color */
+  --background: #212121;     /* Dark blue-gray that complements purple */
+  --text: #e0e0e0;          /* Light gray for readability */
+  --card-bg: #2a2440;       /* Darker purple-toned background */
+  --card-border: #3d3366;   /* Medium purple shade */
+  --button-bg: #393939;     /* Lighter purple variant for contrast */
+  --button-text: #ebebeb;
+  --sidenav-bg: #181818;
+  --sidenav-text: #e0e0e0;
+  --sidenav-hover: #ffffff;
+  --table-border: #616161;
+  --table-hover: #1b1b1b;
+  --table-cell-border: #616161;
+  --table-bg: #2d2d4a; /* Slightly lighter dark background for better contrast */
+  --table-text: #d4d4d4; /* Pure white text for maximum contrast */
+  --input-border: #616161;  /* Darker grey for input borders in dark mode */
+  --submit-button-bg: rgba(254, 98, 59, 1); /* Orange for submit button (unchanged for contrast) */
+  --cancel-button-bg: #2a2440; /* Dark background for cancel button */
+  --cancel-button-text: #e0e0e0;
 }
 *{
   box-sizing: border-box;

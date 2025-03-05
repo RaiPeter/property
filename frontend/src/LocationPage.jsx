@@ -35,7 +35,7 @@ const LocationPage = () => {
         <div className="location-details">
             {properties?.map((property, i) => (
                 <div key={property._id}>
-                    <label>{i+1}</label> 
+                    <label>{i+1}.   </label> 
                     <Link to={"./details"}>
                         <h3>{property.land_area} kattha</h3>
                     </Link>

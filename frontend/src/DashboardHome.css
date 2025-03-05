@@ -1,5 +1,6 @@
 .dashboard-layout{
    /* border: 1px solid red; */
+   height: 100vh;
 }
 .dashboard-layout .container{
     max-width: 900px;
@@ -10,33 +11,29 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    /* height: 50px; */
     align-items: center;
     font-size: 1.4em;
     margin-top: 20px;
     margin-bottom: 40px;
 }
 
+.dashboard-layout .container .top h3{
+    color: var(--text);
+}
 .dashboard-layout .container .top button{
     height: 30px;
     padding-left: 15px;
     padding-right: 15px;
-    color: white;
-    background-color: #4C1D95;
+    color: var(--button-text);
+    background: var(--button-bg);
     outline: none;
     border: none;
-    font-weight: bold;
+    font-weight: 600;
     box-shadow:  0 0 2px rgb(146, 146, 146);
     cursor: pointer;
     transition:  all 0.3s ease-in-out;
 }
 .dashboard-layout .container .top button:hover{
-    color: #4C1D95;
-    background-color: white;
-}
-.dashboard-layout .dashboard-table{
-    margin-top: 20px;
-    border: 1px solid gainsboro;
-    border-radius: 10px;
-    height: 500px;
+    color: var(--button-bg);
+    background: var(--button-text);
 }

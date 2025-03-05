@@ -1,6 +1,6 @@
 import { Link, Route, Outlet, NavLink, useNavigate } from "react-router";
 import "./Dashboard.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "./interceptor/interceptor";
 import { logoutAndClearSession } from "./features/slices/authSlice";
 import { useEffect, useState } from "react";
@@ -22,7 +22,9 @@ const navMenu = [
 export function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth); 
   const [isOpen, setIsOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
 
   const handleLogout = async () => {
     try {
@@ -51,10 +53,22 @@ export function Dashboard() {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute(
+      'data-theme',
+      isDarkMode ? 'dark' : 'light'
+    );
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prevMode => !prevMode);
+  };
+
   return (
     <div
       className="body"
-      style={isOpen ? { backgroundColor: "rgba(0,0,0,0.4)" } : {}}
+      // style={isOpen ? { backgroundColor: "#111111" } : {}}
     >
       <title>Dashboard : Home</title>
       <div className="sidenav" style={{ width: isOpen ? "250px" : "0" }}>
@@ -76,7 +90,10 @@ export function Dashboard() {
             <img src={Logo} alt="" />
           </div>
           <div>
-            <Link to={"/user"}>User aj</Link>
+            <Link to={"/user"}>{auth.user.user.username}</Link>
+            <button onClick={toggleTheme} className="theme-toggle">
+              {isDarkMode ? '☀️' : '🌙'}
+            </button>
           </div>
         </div>
         <div>

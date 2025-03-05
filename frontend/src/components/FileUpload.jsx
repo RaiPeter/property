@@ -56,7 +56,7 @@ const FileUpload = ({setFileImage}) => {
             alt="Preview"
           />
         ) : (
-          <p>Drop your images here or <span>click to click to browse</span></p>
+          <p>Drop your images here or <span>click to browse</span></p>
         )}
       </label>
     </div>

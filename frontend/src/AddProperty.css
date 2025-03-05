@@ -1,89 +1,108 @@
-.add-property{
-    /* border: 1px solid red; */
-    padding: 5px;
+.add-property {
+  /* border: 1px solid red; */
+  padding: 5px;
 }
-.add-property .container{
-    max-width: 900px;
-    margin: auto;
+.add-property .container {
+  max-width: 900px;
+  margin: auto;
 }
-.property-row{
-    display: flex;
-    justify-content: space-between;
-    /* border: 1px solid green; */
+.add-property .container h3{
+    margin-top: 20px;
+    color: var(--text);
+    font-size: 1.3em;
     margin-bottom: 10px;
 }
-.property-row .property-field{
-    display: flex;
-    flex-direction: column;
+.add-property .container label{
+    color: var(--text);
 }
-.property-row .property-field input{
-    min-width: 290px;
-    outline: none;
-    font-size: 1.1em ;
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px;
+.property-row {
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid green; */
+  margin-bottom: 10px;
 }
-
-.property-row .property-field select{
-    min-width: 290px;
-    outline: none;
-    font-size: 1.1em ;
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px;
+.property-row .property-field {
+  display: flex;
+  flex-direction: column;
 }
-.property-row .property-field .features{
-    display: flex;
-    flex-wrap: wrap;
+.property-row .property-field input {
+  min-width: 290px;
+  outline: none;
+  font-size: 1.1em;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  background: var(--background);
+  color: var(--text);
 }
-
-.property-row .property-field .features label{
-    width: 150px;
-    display: flex;
+.property-row .property-field select {
+  min-width: 290px;
+  outline: none;
+  font-size: 1.1em;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  background: var(--background);
+  color: var(--text);
 }
-.property-row .property-field .features label input{
-    min-width: 30px;
-    display: flex;
+.property-row .property-field .features {
+  display: flex;
+  flex-wrap: wrap;
 }
-
-
-
-.property-row .property-field-textarea{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.property-row .property-field .features label {
+  width: 150px;
+  display: flex;
 }
-.property-row .property-field-textarea textarea{ 
-    outline: none;
-    font-size: 1.3em;
-    border: 1px solid grey;
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px;
-    height: 100px;
-    resize: none;
+.property-row .property-field .features label input {
+  min-width: 30px;
+  display: flex;
 }
-.buttons{
-    display: flex;
-    justify-content: right;
-    margin-top: 10px;
+.property-row .property-field-textarea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.property-row .property-field-textarea textarea {
+  outline: none;
+  font-size: 1.3em;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 5px;
+  height: 100px;
+  resize: none;
+  background: var(--background);
+  color: var(--text);
+}
+.buttons {
+  display: flex;
+  justify-content: right;
+  margin-top: 10px;
 }
 .buttons button {
-    outline: none;
-    border: 1px solid grey;
-    padding: 5px 10px 5px 10px;
-    border-radius: 5px;
-    font-size: 1.1em;
-    margin-left: 10px;
+  outline: none;
+  border: 1px solid var(--input-border);
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+  font-size: 1.1em;
+  margin-left: 10px;
+  transition: all 0.3s ease-in-out;
 }
-.buttons .cancel{
-    background-color: white;
-    color: black;
+.buttons .cancel {
+  background-color: var(--cancel-button-bg);
+  color: var(--cancel-button-text);
 }
-.buttons .submit{
-    background-color: rgba(254, 98, 59, 1);
-    color: white;
+.buttons .submit {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+.buttons .cancel:hover {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+.buttons .submit:hover {
+  background-color: var(--button-text);
+  color: var(--button-bg);
 }

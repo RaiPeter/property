@@ -67,9 +67,7 @@ export default function DashboardHome() {
             Add new property
           </button>
         </div>
-        <div className="dashboard-table">
-          <Table data={properties} />
-        </div>
+        <Table data={properties} />
       </div>
     </div>
   );
