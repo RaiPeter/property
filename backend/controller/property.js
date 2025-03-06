@@ -15,8 +15,8 @@ const { getEmbedMapUrl, expandShortUrl } = require("../utils/mapEmbedHelper");
 const postProperty = async (req, res, next) => {
   console.log("body ", req.body);
   console.log("files ", req.files);
-  console.log("Khatiyan Image File:", req.files.khatiyan_img[0]);
-  console.log("Siteplan Image File:", req.files.siteplan_img[0]);
+  // console.log("Khatiyan Image File:", req.files?.khatiyan_img[0]);
+  // console.log("Siteplan Image File:", req.files?.siteplan_img[0]);
   if (
     !req.body.property_location ||
     !req.body.property_area ||

@@ -49,7 +49,7 @@ const FileUpload = ({setFileImage}) => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <input type="file" onChange={handleFileChange} hidden />
+        <input type="file" required onChange={handleFileChange} hidden />
         {file?.preview ? (
           <img
             src={file.preview}

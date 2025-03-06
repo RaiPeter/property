@@ -23,6 +23,7 @@ const AddProperty = () => {
   });
   const [owners, setOwners] = useState([]); // List of existing owners
   const [isNewOwner, setIsNewOwner] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
 
   useEffect(() => {
     const fetchOwners = async () => {
@@ -79,6 +80,7 @@ const AddProperty = () => {
 
   const handleForm = async (e) => {
     e.preventDefault();
+    setLoading(true);
     console.log(property_location);
 
     console.log("Form Submitted", propertyFormData);
@@ -88,6 +90,7 @@ const AddProperty = () => {
       formData.append("siteplan_img", property_siteplan_image);
     } else {
       console.error("No file selected");
+      setLoading(false);
       return;
     }
     Object.keys(propertyFormData).forEach((key) => {
@@ -118,6 +121,8 @@ const AddProperty = () => {
         "Error submitting form:",
         error.response?.data || error.message
       );
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -134,6 +139,7 @@ const AddProperty = () => {
                 placeholder="Enter property location"
                 id="property_location"
                 name="property_location"
+                required
                 value={property_location}
                 onChange={(e) => setPropertyLocation(e.target.value)}
               />
@@ -147,6 +153,7 @@ const AddProperty = () => {
                 placeholder="Enter property area"
                 id="property_area"
                 name="property_area"
+                required
                 value={property_area}
                 onChange={(e) => setPropertyArea(e.target.value)}
               />
@@ -162,6 +169,7 @@ const AddProperty = () => {
                 value={isNewOwner ? "new" : property_owner_name}
                 onChange={handleOwnerChange}
                 onFocus={handleFocus}
+                required
                 onBlur={handleBlur}
                 size={1} // Default size
               >
@@ -191,6 +199,7 @@ const AddProperty = () => {
                 type="number"
                 placeholder="Enter owner contact"
                 id="property_owner_contact"
+                required
                 name="property_owner_contact"
                 value={property_owner_contact}
                 onChange={(e) => setPropertyOwnerContact(e.target.value)}
@@ -204,6 +213,7 @@ const AddProperty = () => {
                 type="email"
                 placeholder="Enter owner email"
                 id="property_owner_email"
+                required
                 name="property_owner_email"
                 value={property_owner_email}
                 onChange={(e) => setPropertyOwnerEmail(e.target.value)}
@@ -212,11 +222,12 @@ const AddProperty = () => {
           </div>
           <div className="property-row">
             <div className="property-field">
-              <label htmlFor="property_embed_map_link">Property map lin</label>
+              <label htmlFor="property_embed_map_link">Property map link</label>
               <input
                 type="text"
                 placeholder="Enter map link"
                 id="property_embed_map_link"
+                required
                 name="property_embed_map_link"
                 value={property_embed_map_link}
                 onChange={(e) => setPropertyEmbedMapLink(e.target.value)}
@@ -240,11 +251,15 @@ const AddProperty = () => {
             </div>
           </div>
           <div className="buttons">
-            <button type="cancel" className="cancel">
+            <button type="cancel" className="cancel" disabled={loading}>
               Cancel
             </button>
-            <button type="submit" className="submit">
-              Add Property
+            <button type="submit" className="submit" disabled={loading}>
+              {loading ? (
+                <span className="loader"></span> // Add loader inside button
+              ) : (
+                "Add Property"
+              )}
             </button>
           </div>
         </form>
