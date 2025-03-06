@@ -47,6 +47,8 @@ const loginUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/',
     };
 
     res
@@ -70,6 +72,8 @@ const logoutUser = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production', // Enable in a production environment with HTTPS
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/',
     };
 
     res.clearCookie("accessToken", options)
@@ -91,6 +95,8 @@ const refreshAccessToken = async (req, res) => {
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production', // Enable in a production environment with HTTPS
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/',
     };
     res.cookie("accessToken", accessToken, options);
 
