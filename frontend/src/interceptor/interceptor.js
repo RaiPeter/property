@@ -2,8 +2,16 @@ import axios from 'axios';
 import { loginUser, logoutAndClearSession } from '../features/slices/authSlice';
 import store from '../store';
 
+const getBaseUrl = () => {
+    // Use environment variable to determine the base URL
+    if (process.env.NODE_ENV === 'production') {
+      return 'https://property-nmw1.onrender.com';
+    }
+    return 'http://localhost:8000'; // Default for development
+  };
+
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000',
+    baseURL: getBaseUrl(),
     timeout: 5000,
     withCredentials: true, 
 })
