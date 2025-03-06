@@ -81,8 +81,6 @@ export function Dashboard() {
           x
         </a>
         <Link to="/dashboard">Home</Link>
-        <Link to="/owners">Owners</Link>
-        <Link to="/properties">Lands</Link>
       </div>
       <div id="main">
         <div className="navbar">
