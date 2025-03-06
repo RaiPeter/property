@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose')
 const app = express();
 
-const PORT = 3000 ;
+const PORT = process.env.PORT || 3000;
 const property = require('./routes/property');
 const auth = require('./routes/auth');
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cookieParser());
 let corsOptions = {
-  origin: [ 'http://localhost:3000' ],
+  origin: [ 'http://localhost:3000', 'https://property-zeta-eight.vercel.app/'],
   credentials : true
 };
 app.use(cors(corsOptions));

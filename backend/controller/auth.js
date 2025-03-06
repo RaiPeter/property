@@ -46,7 +46,7 @@ const loginUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
     };
 
     res
@@ -69,7 +69,7 @@ const logoutUser = async (req, res) => {
     // console.log(req.body,"hasdf", req.file.filename);
     const options = {
       httpOnly: true,
-      secure: true, // Enable in a production environment with HTTPS
+      secure: process.env.NODE_ENV === 'production', // Enable in a production environment with HTTPS
     };
 
     res.clearCookie("accessToken", options)
@@ -90,7 +90,7 @@ const refreshAccessToken = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: true, // Enable in a production environment with HTTPS
+      secure: process.env.NODE_ENV === 'production', // Enable in a production environment with HTTPS
     };
     res.cookie("accessToken", accessToken, options);
 
