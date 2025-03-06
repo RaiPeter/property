@@ -1,46 +1,61 @@
-.dashboard-layout{
-   /* border: 1px solid red; */
-   height: 100vh;
+.dashboard-layout {
+  /* border: 1px solid red; */
+  height: 100vh;
 }
-.dashboard-layout .container{
-    max-width: 900px;
-    margin: auto;
-}
-
-.dashboard-layout .container .top{
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    align-items: center;
-    font-size: 1.4em;
-    margin-top: 20px;
-    margin-bottom: 40px;
+.dashboard-layout .container {
+  max-width: 900px;
+  margin: auto;
 }
 
-.dashboard-layout .container .top h3{
-    color: var(--text);
-}
-.dashboard-layout .container .top button{
-    height: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
-    color: var(--button-text);
-    background: var(--button-bg);
-    outline: none;
-    border: none;
-    font-weight: 600;
-    box-shadow:  0 0 2px rgb(146, 146, 146);
-    cursor: pointer;
-    transition:  all 0.3s ease-in-out;
-}
-.dashboard-layout .container .top button:hover{
-    color: var(--button-bg);
-    background: var(--button-text);
+.dashboard-layout .container .top {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  font-size: 1.4em;
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+.dashboard-layout .container .top h3 {
+  color: var(--text);
+}
+.dashboard-layout .container .top button {
+  height: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: var(--button-text);
+  background: var(--button-bg);
+  outline: none;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 0 2px rgb(146, 146, 146);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.dashboard-layout .container .top button:hover {
+  color: var(--button-bg);
+  background: var(--button-text);
+}
 
-    .dashboard-layout .container {
-      max-width: 700px;
-    }
+@media screen and (max-width: 1024px) {
+  .dashboard-layout .container {
+    max-width: 700px;
   }
+}
+@media screen and (max-width: 480px) {
+  .dashboard-layout .container {
+    max-width: 380px;
+    /* font-size: 1em; */
+  }
+
+  .dashboard-layout .container .top {
+    margin-bottom: 20px;
+  }
+  #main .navbar > div:first-child{
+    width: 180px;
+  }
+  #main .navbar > div:nth-child(2) a{
+    font-size: 1em;
+  }
+}

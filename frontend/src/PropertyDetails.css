@@ -58,7 +58,29 @@
   .details .container .siteplan{
     margin-top: 40px;
   }
+  .img-show{
+    width: 90%;
+  }
   .img-show img{
     object-fit: contain;
   }
+}
+@media screen and (max-width: 480px) {
+  .details .container {
+    max-width: 400px;
+    font-size: 1em;
+  }
+  .popup img{
+    width: 100%;
+  }
+  .details .container .khatiyan{
+    margin-top: 30px;
+  }
+  .img-show img{
+    object-fit: contain;
+  }
+  .img-show{
+    width: 90%;
+  }
+
 }

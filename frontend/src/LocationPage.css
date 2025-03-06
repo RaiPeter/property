@@ -1,29 +1,33 @@
-.location{
-    height: 100vh;
-    color: var(--text);
+.location {
+  height: 100vh;
+  color: var(--text);
 }
-.location .container{
-    max-width: 900px;
-    margin: auto;
+.location .container {
+  max-width: 900px;
+  margin: auto;
 }
-.location .container .top{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 1.3em;
-
+.location .container .top {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 1.3em;
 }
-.location .container .location-details > div{
-    display: flex;
-    margin-bottom: 15px;
+.location .container .location-details > div {
+  display: flex;
+  margin-bottom: 15px;
 }
 
 .location .container .location-details a {
-    color: var(--text);
+  color: var(--text);
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-
-    .location .container {
-      max-width: 700px;
-    }
+  .location .container {
+    max-width: 700px;
   }
+}
+
+@media screen and (max-width: 480px) {
+  .location .container {
+    max-width: 400px;
+  }
+}
