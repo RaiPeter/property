@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import axiosInstance from "./interceptor/interceptor.js";
 import { loginUser } from "./features/slices/authSlice.js";
+import "./Login.css"
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,8 +39,8 @@ const Login = () => {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"

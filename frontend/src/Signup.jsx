@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import axiosInstance from "./interceptor/interceptor";
+import "./Signup.css"
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -30,8 +31,8 @@ const Signup = () => {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Username"
