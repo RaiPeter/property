@@ -5,20 +5,6 @@ import axiosInstance from "./interceptor/interceptor";
 import { Link, Outlet, useNavigate } from "react-router";
 import FileUpload from "./components/FileUpload";
 
-const featuresList = [
-  "AC & Heating",
-  "Clubhouse",
-  "Fitness Center",
-  "Swimming Pool",
-  "Gym",
-  "Garden",
-  "Fireplace",
-  "Balcony",
-  "Security System",
-  "Parking",
-];
-const stylesList = ["A-Frame", "Office", "Building", "Industrial", "Shop"];
-
 const AddProperty = () => {
   const navigate = useNavigate();
   const [property_location, setPropertyLocation] = useState("");
@@ -37,11 +23,6 @@ const AddProperty = () => {
   });
   const [owners, setOwners] = useState([]); // List of existing owners
   const [isNewOwner, setIsNewOwner] = useState(false);
-
-  // const [property_image, setProperty_image] = useState({
-  //   preview: "",
-  //   data: "",
-  // });
 
   useEffect(() => {
     const fetchOwners = async () => {

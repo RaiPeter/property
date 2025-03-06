@@ -1,6 +1,6 @@
 .add-property {
-  /* border: 1px solid red; */
   padding: 5px;
+  padding-bottom: 80px;
 }
 .add-property .container {
   max-width: 900px;
@@ -89,6 +89,7 @@
   font-size: 1.1em;
   margin-left: 10px;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 .buttons .cancel {
   background-color: var(--cancel-button-bg);

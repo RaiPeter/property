@@ -4,39 +4,6 @@ import { useNavigate } from "react-router";
 import axiosInstance from "./interceptor/interceptor";
 import { useState, useEffect } from "react";
 
-const data = [
-  {
-    land: "2",
-    location: "Pattharghatta",
-    total: "3",
-  },
-  {
-    land: "3",
-    location: "Siliguri",
-    total: "2",
-  },
-  {
-    land: "8",
-    location: "Matigara",
-    total: "7",
-  },
-  {
-    land: "3",
-    location: "Shivmandir",
-    total: "7",
-  },
-  {
-    land: "9",
-    location: "Matigara",
-    total: "6",
-  },
-  {
-    land: "12",
-    location: "Pattharghatta",
-    total: "7",
-  },
-];
-
 export default function DashboardHome() {
   const [properties, setProperties] = useState([]);
   const navigate = useNavigate();

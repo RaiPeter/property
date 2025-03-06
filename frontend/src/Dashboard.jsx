@@ -1,43 +1,37 @@
-import { Link, Route, Outlet, NavLink, useNavigate } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router"; // Fixed import syntax
 import "./Dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "./interceptor/interceptor";
 import { logoutAndClearSession } from "./features/slices/authSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Logo from "./assets/Landify.png";
-
-const navMenu = [
-  {
-    name: "Dashboard",
-    // img: AppIcon,
-    link: "/dashboard",
-  },
-  // {
-  //   name: "Properties",
-  //   img: PropertyIcon,
-  //   link: "/dashboard/properties",
-  // }
-];
 
 export function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth); 
+  const auth = useSelector((state) => state.auth.user);
+  const [currentUser, setCurrentUser] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(
+    () => localStorage.getItem("theme") === "dark"
+  );
+  const dropdownRef = useRef(null);
 
   const handleLogout = async () => {
     try {
-      //   await axiosInstance.post("/auth/logout"); // Hit the logout API
-      dispatch(logoutAndClearSession()); // Clear Redux state and session storage
-      navigate("/"); // Clear user data // Redirect to login page
+      // await axiosInstance.post("/auth/logout");
+      dispatch(logoutAndClearSession());
+      navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }
+    setIsDropdownOpen(false);
   };
 
+  // Sidebar click outside handler
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutsideSidebar = (event) => {
       if (
         isOpen &&
         !event.target.closest(".sidenav") &&
@@ -46,34 +40,45 @@ export function Dashboard() {
         setIsOpen(false);
       }
     };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
+    document.addEventListener("click", handleClickOutsideSidebar);
+    return () =>
+      document.removeEventListener("click", handleClickOutsideSidebar);
   }, [isOpen]);
 
+  // Dropdown click outside handler
+  useEffect(() => {
+    const handleClickOutsideDropdown = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutsideDropdown);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutsideDropdown);
+  }, []);
+
+  // Theme and user setup
   useEffect(() => {
     document.documentElement.setAttribute(
-      'data-theme',
-      isDarkMode ? 'dark' : 'light'
+      "data-theme",
+      isDarkMode ? "dark" : "light"
     );
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    if (auth?.user?.username) {
+      setCurrentUser(auth.user.username);
+    }
+  }, [isDarkMode, auth]);
 
   const toggleTheme = () => {
-    setIsDarkMode(prevMode => !prevMode);
+    setIsDarkMode((prevMode) => !prevMode);
   };
 
   return (
-    <div
-      className="body"
-      // style={isOpen ? { backgroundColor: "#111111" } : {}}
-    >
+    <div className="body">
       <title>Dashboard : Home</title>
       <div className="sidenav" style={{ width: isOpen ? "250px" : "0" }}>
         <a className="closebtn" onClick={() => setIsOpen(false)}>
-          &times;
+          x
         </a>
         <Link to="/dashboard">Home</Link>
         <Link to="/owners">Owners</Link>
@@ -89,16 +94,31 @@ export function Dashboard() {
           >
             <img src={Logo} alt="" />
           </div>
-          <div>
-            <Link to={"/user"}>{auth.user.user.username}</Link>
+          <div ref={dropdownRef} style={{ position: "relative" }}>
+            <Link
+              to={"/user"}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsDropdownOpen(!isDropdownOpen);
+              }}
+            >
+              {currentUser}
+            </Link>
+            {isDropdownOpen && (
+              <div className="logout">
+                <button
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
             <button onClick={toggleTheme} className="theme-toggle">
-              {isDarkMode ? '☀️' : '🌙'}
+              {isDarkMode ? "☀️" : "🌙"}
             </button>
           </div>
         </div>
-        <div>
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-.body{
+.body {
   background: var(--background);
   font-family: Inter, monospace;
-}/* The side navigation menu */
+} /* The side navigation menu */
 .sidenav {
   height: 100%;
   width: 0;
@@ -21,7 +21,7 @@
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: var(--sidenav-text);;
+  color: var(--sidenav-text);
   display: block;
   transition: 0.3s;
 }
@@ -39,24 +39,24 @@
 #main {
   transition: margin-left 0.5s;
 }
-#main .navbar{
+#main .navbar {
   height: 80px;
-  background-color: var(--primary);;
+  background-color: var(--primary);
 }
-#main .navbar{
+#main .navbar {
   display: flex;
   justify-content: space-between;
 }
-#main .navbar > div:first-child{
+#main .navbar > div:first-child {
   display: flex;
   align-items: center;
   padding: 20px;
   width: 250px;
-  }
-#main .navbar > div:first-child > img{
+}
+#main .navbar > div:first-child > img {
   width: 100%;
-  }
-#main .navbar > div:nth-child(2){
+}
+#main .navbar > div:nth-child(2) {
   /* background-color: brown; */
   display: flex;
   align-items: center;
@@ -66,7 +66,26 @@
   text-decoration: none;
   color: var(--button-text);
   font-size: 1.3em;
-
+}
+#main .navbar .logout {
+  position: absolute;
+  top: 60px;
+  background: var(--background);
+  border: 1px solid var(--table-border);
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1000;
+  min-width: 100px;
+}
+#main .navbar .logout button {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  background: var(--background);
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
 }
 
 /* Theme toggle button */
@@ -85,8 +104,6 @@
 .theme-toggle:hover {
   opacity: 0.9;
 }
-
-
 
 @media screen and (max-height: 450px) {
   .sidenav {
