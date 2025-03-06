@@ -3,6 +3,7 @@ const {
   loginUserService,
   logoutUserService,
   refreshAccessTokenService,
+  getUserService,
 } = require("../services/auth.service");
 
 const registerUser = async (req, res, next) => {
@@ -29,6 +30,13 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     if (!(email && password)) {
       return res.status(400).json({ message: "All inputs are required." });
+    }
+
+    const user = await getUserService(email);
+    console.log(user);
+    
+    if(!user){
+      return res.status(404).json({message: "User not registered"})
     }
 
     const { accessToken, refreshToken, loggedInUser } = await loginUserService(

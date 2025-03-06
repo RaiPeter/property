@@ -36,19 +36,7 @@ export const verifyAuth = () => async (dispatch) => {
     dispatch(loginUser({ user: data.user}));
   } catch (error) {
     console.error("Verification failed. Trying refresh:", error);
-    dispatch(refreshTokenAndRetry());
-  }
-};
-
-// Refresh token if access token expires
-export const refreshTokenAndRetry = () => async (dispatch) => {
-  try {
-    const { data } = await axiosInstance.post("/auth/refresh");
-    console.log("Refresh Token Success:", data);
-    dispatch(verifyAuth()); // Re-check authentication
-  } catch (error) {
-    console.log("Refresh token expired. Logging out...");
-    dispatch(logoutAndClearSession());
+    // dispatch(refreshTokenAndRetry());
   }
 };
 

@@ -56,6 +56,16 @@ const loginUserService = async (email, password) => {
   }
 };
 
+const getUserService = async (email) => {
+  try{
+    const user = await findUserByEmail(email);
+    return user;
+  }catch(e){
+    console.error("Error fetching a user", e);
+    
+  }
+}
+
 const logoutUserService = async (user) => {
   // Remove the refresh token from the user's information
   try {    
@@ -131,4 +141,5 @@ module.exports = {
   logoutUserService,
   refreshAccessTokenService,
   generateAccessAndRefreshTokens,
+  getUserService
 };
