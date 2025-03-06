@@ -4,10 +4,7 @@ import store from '../store';
 
 const getBaseUrl = () => {
     // Use environment variable to determine the base URL
-    if (process.env.NODE_ENV === 'production') {
-      return 'https://property-nmw1.onrender.com';
-    }
-    return 'http://localhost:8000'; // Default for development
+    return process.env.API_URL || 'http://localhost:8000'; // Default for development
   };
 
 const axiosInstance = axios.create({
