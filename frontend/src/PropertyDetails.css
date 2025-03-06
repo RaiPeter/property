@@ -1,5 +1,6 @@
 .details {
     color: var(--text);
+    padding-bottom: 60px;
 }
 .details .container {
   max-width: 900px;

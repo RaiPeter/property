@@ -106,11 +106,7 @@ export function Dashboard() {
             </Link>
             {isDropdownOpen && (
               <div className="logout">
-                <button
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
+                <button onClick={handleLogout}>Logout</button>
               </div>
             )}
             <button onClick={toggleTheme} className="theme-toggle">
