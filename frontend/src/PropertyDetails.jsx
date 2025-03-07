@@ -50,11 +50,11 @@ const PropertyDetails = () => {
         </div>
         <div className="khatiyan">
             <h3>Khatiyan : </h3>
-            <ImageShow url={`http://localhost:8000/property-images/${currentProperty?.khatiyan_image}`} />
+            <ImageShow url={currentProperty?.khatiyan_image}/>
         </div>
         <div className="siteplan">
             <h3>Siteplan :</h3>
-            <ImageShow url={`http://localhost:8000/property-images/${currentProperty?.siteplan_image}`} />
+            <ImageShow url={currentProperty?.siteplan_image}/>
         </div>
       </div>
     </div>

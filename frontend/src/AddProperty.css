@@ -2,6 +2,10 @@
   padding: 5px;
   padding-bottom: 80px;
 }
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
 .add-property .container {
   max-width: 900px;
   margin: auto;

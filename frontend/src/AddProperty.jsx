@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AddProperty.css";
-import axios from "axios";
 import axiosInstance from "./interceptor/interceptor";
-import { Link, Outlet, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import FileUpload from "./components/FileUpload";
 
 const AddProperty = () => {
@@ -13,17 +12,14 @@ const AddProperty = () => {
   const [property_owner_contact, setPropertyOwnerContact] = useState("");
   const [property_owner_email, setPropertyOwnerEmail] = useState("");
   const [property_embed_map_link, setPropertyEmbedMapLink] = useState("");
-  const [property_khatiyan_image, setPropertyKhatiyanImage] = useState({
-    preview: "",
-    data: "",
-  });
-  const [property_siteplan_image, setPropertySiteplanImage] = useState({
-    preview: "",
-    data: "",
-  });
+  const [property_khatiyan_image, setPropertyKhatiyanImage] = useState(null);
+  const [property_siteplan_image, setPropertySiteplanImage] = useState(null);
+  const [resetCounter, setResetCounter] = useState(0);
+
   const [owners, setOwners] = useState([]); // List of existing owners
   const [isNewOwner, setIsNewOwner] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
+  const [error, setError] = useState(""); // Add error state for user feedback
 
   useEffect(() => {
     const fetchOwners = async () => {
@@ -69,38 +65,65 @@ const AddProperty = () => {
     }
   };
 
-  const propertyFormData = {
-    property_location,
-    property_area,
-    property_owner_name,
-    property_owner_contact,
-    property_owner_email,
-    property_embed_map_link,
+  // Convert file to base64 string
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(property_location);
+    setError(""); // Clear previous errors
 
-    console.log("Form Submitted", propertyFormData);
-    let formData = new FormData();
-    if (property_khatiyan_image && property_siteplan_image) {
-      formData.append("khatiyan_img", property_khatiyan_image);
-      formData.append("siteplan_img", property_siteplan_image);
-    } else {
-      console.error("No file selected");
+    // Validate required fields
+    if (
+      !property_location ||
+      !property_area ||
+      !property_owner_name ||
+      !property_owner_contact ||
+      !property_owner_email ||
+      !property_embed_map_link
+    ) {
+      setError("All fields are required.");
       setLoading(false);
       return;
     }
-    Object.keys(propertyFormData).forEach((key) => {
-      formData.append(key, propertyFormData[key]);
-    });
-    // formData.append(propertyFormData)
+
+    if (!property_khatiyan_image || !property_siteplan_image) {
+      setError("Both khatiyan and siteplan images are required.");
+      setLoading(false);
+      return;
+    }
 
     try {
-      const { data } = await axiosInstance.post("/api/add-property", formData);
-      console.log("Form Submitted Successfully:", data);
+      // Convert images to base64
+      const khatiyanBase64 = await convertToBase64(property_khatiyan_image);
+      const siteplanBase64 = await convertToBase64(property_siteplan_image);
+
+      // Prepare data for the backend
+      const propertyData = {
+        property_location,
+        property_area,
+        property_owner_name,
+        property_owner_contact,
+        property_owner_email,
+        property_embed_map_link,
+        khatiyan_img: khatiyanBase64, // Separate field for khatiyan image
+        siteplan_img: siteplanBase64, // 
+      };
+
+      console.log("Submitting property data:", propertyData);
+
+      const { data } = await axiosInstance.post(
+        "/api/add-property",
+        propertyData
+      );
+      console.log("Property added successfully:", data);
 
       // Reset form fields
       setPropertyLocation("");
@@ -109,19 +132,23 @@ const AddProperty = () => {
       setPropertyOwnerContact("");
       setPropertyOwnerEmail("");
       setPropertyEmbedMapLink("");
-      setPropertyKhatiyanImage({});
-      setPropertySiteplanImage({});
+      setPropertyKhatiyanImage(null);
+      setPropertySiteplanImage(null);
       setIsNewOwner(false);
+      setResetCounter((prev) => prev + 1); // Trigger FileUpload reset
 
-      // Optionally redirect
+      // Redirect to dashboard
       navigate("/dashboard");
-      // Reset form fields
     } catch (error) {
       console.error(
         "Error submitting form:",
         error.response?.data || error.message
       );
-    }finally {
+      setError(
+        error.response?.data?.error ||
+          "Failed to add property. Please try again."
+      );
+    } finally {
       setLoading(false);
     }
   };
@@ -130,6 +157,7 @@ const AddProperty = () => {
     <div className="add-property">
       <div className="container">
         <h3>Add a property</h3>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleForm}>
           <div className="property-row">
             <div className="property-field">
@@ -239,7 +267,10 @@ const AddProperty = () => {
               <h3 htmlFor="property_owner_khatiyan_image">
                 Property khatiyan :
               </h3>
-              <FileUpload setFileImage={setPropertyKhatiyanImage} />
+              <FileUpload
+                setFileImage={setPropertyKhatiyanImage}
+                reset={resetCounter}
+              />
             </div>
           </div>
           <div className="property-row">
@@ -247,11 +278,19 @@ const AddProperty = () => {
               <h3 htmlFor="property_owner_siteplan_image">
                 Property siteplan :
               </h3>
-              <FileUpload setFileImage={setPropertySiteplanImage} />
+              <FileUpload
+                setFileImage={setPropertySiteplanImage}
+                reset={resetCounter}
+              />
             </div>
           </div>
           <div className="buttons">
-            <button type="cancel" className="cancel" disabled={loading}>
+            <button
+              type="button"
+              className="cancel"
+              disabled={loading}
+              onClick={() => navigate("/dashboard")}
+            >
               Cancel
             </button>
             <button type="submit" className="submit" disabled={loading}>

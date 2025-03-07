@@ -2,12 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose')
+const cloudinary = require('cloudinary').v2;
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 const property = require('./routes/property');
 const auth = require('./routes/auth');
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 let corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = [
@@ -28,6 +33,9 @@ let corsOptions = {
 app.use(cors(corsOptions));
 
 app.options('*', cors(corsOptions));
+// Increase body size limit for JSON requests
+app.use(express.json({ limit: '10mb' })); // Increase to 10MB (adjust as needed)
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 mongoose.connect(process.env.DB_CONNECTION)
 .then(() => console.log("MongoDB Connected! 📍"))
@@ -35,7 +43,7 @@ mongoose.connect(process.env.DB_CONNECTION)
 
 app.use(express.urlencoded({ extended : true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public/property-images/')));
+// app.use(express.static(path.join(__dirname, 'public/property-images/')));
 app.use(cookieParser());
 
 app.use('/auth', auth);

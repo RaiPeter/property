@@ -1,21 +1,41 @@
-import React, { useState } from "react";
-import "./FileUpload.css"
+import React, { useState, useEffect } from "react";
+import "./FileUpload.css";
 
-
-const FileUpload = ({setFileImage}) => {
+const FileUpload = ({ setFileImage, reset }) => {
   const [file, setFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (file?.preview) {
+        URL.revokeObjectURL(file.preview);
+      }
+    };
+  }, [file]);
+
+  // Reset the file and preview when the reset prop changes
+  useEffect(() => {
+    if (reset) {
+      if (file?.preview) {
+        URL.revokeObjectURL(file.preview);
+      }
+      setFile(null);
+      setFileImage(null);
+    }
+  }, [reset, setFileImage]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
+      if (file?.preview) {
+        URL.revokeObjectURL(file.preview);
+      }
       setFile({
         file: selectedFile,
-        preview: URL.createObjectURL(selectedFile), // Create preview URL
+        preview: URL.createObjectURL(selectedFile),
       });
+      setFileImage(selectedFile);
     }
-    setFileImage(selectedFile)
-
   };
 
   const handleDragOver = (event) => {
@@ -32,12 +52,14 @@ const FileUpload = ({setFileImage}) => {
     setDragActive(false);
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
-      const fileData = setFile({
+      if (file?.preview) {
+        URL.revokeObjectURL(file.preview);
+      }
+      setFile({
         file: droppedFile,
-        preview: URL.createObjectURL(droppedFile), // Create preview URL
+        preview: URL.createObjectURL(droppedFile),
       });
-      setFile(fileData)
-      setFileImage(fileData)
+      setFileImage(droppedFile);
     }
   };
 
@@ -49,14 +71,13 @@ const FileUpload = ({setFileImage}) => {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <input type="file" required onChange={handleFileChange} hidden />
+        <input type="file" required onChange={handleFileChange} hidden accept="image/*" />
         {file?.preview ? (
-          <img
-            src={file.preview}
-            alt="Preview"
-          />
+          <img src={file.preview} alt="Preview" className="preview-image" />
         ) : (
-          <p>Drop your images here or <span>click to browse</span></p>
+          <p>
+            Drop your images here or <span>click to browse</span>
+          </p>
         )}
       </label>
     </div>
