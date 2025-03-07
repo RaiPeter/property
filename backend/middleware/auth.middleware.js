@@ -4,15 +4,26 @@ const { User } = require("../models/Property.js");
 const { findUserById } = require("../db/auth-db.js");
 
 const verifyJWT = async (req, res, next) => {
-  try {
-    console.log("Cookies received:", req.cookies);
-    const token =
-      req.cookies?.accessToken ||
-      req.get("Authorization")?.replace("Bearer ", "");
-    if (!token) {
-      return res.status(400).json({ message: "No token provided" });
-    }
+  let token;
 
+  // Check Authorization header first
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.split(' ')[1];
+    console.log('Token from Authorization header:', token);
+  }
+
+  // Fallback to cookie if no Authorization header
+  if (!token && req.cookies.accessToken) {
+    token = req.cookies.accessToken;
+    console.log('Token from cookie:', token);
+  }
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+  
+  try {
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
     console.log(decodedToken);
 

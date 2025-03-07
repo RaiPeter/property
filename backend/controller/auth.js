@@ -27,8 +27,8 @@ const registerUser = async (req, res, next) => {
 
 const loginUser = async (req, res) => {
   try {
-    console.log('Request headers:', req.headers);
-  console.log('Request body:', req.body);
+    console.log("Request headers:", req.headers);
+    console.log("Request body:", req.body);
     const { email, password } = req.body;
     if (!(email && password)) {
       return res.status(400).json({ message: "All inputs are required." });
@@ -36,9 +36,9 @@ const loginUser = async (req, res) => {
 
     const user = await getUserService(email);
     console.log(user);
-    
-    if(!user){
-      return res.status(404).json({message: "User not registered"})
+
+    if (!user) {
+      return res.status(404).json({ message: "User not registered" });
     }
 
     const { accessToken, refreshToken, loggedInUser } = await loginUserService(
@@ -48,9 +48,9 @@ const loginUser = async (req, res) => {
 
     const options = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      path: '/',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
     };
 
     res
@@ -59,7 +59,9 @@ const loginUser = async (req, res) => {
 
     return res.status(200).json({
       message: "Logged in successfully",
-      loggedInUser
+      loggedInUser,
+      accessToken,
+      refreshToken
     });
   } catch (e) {
     console.log(e.message);
@@ -73,15 +75,17 @@ const logoutUser = async (req, res) => {
     // console.log(req.body,"hasdf", req.file.filename);
     const options = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Enable in a production environment with HTTPS
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      path: '/',
+      secure: process.env.NODE_ENV === "production", // Enable in a production environment with HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
     };
 
-    res.clearCookie("accessToken", options)
+    res.clearCookie("accessToken", options);
     res.clearCookie("refreshToken", options);
 
-    return res.status(200).json({ user: {}, message: "Logged out successfully" });
+    return res
+      .status(200)
+      .json({ user: {}, message: "Logged out successfully" });
   } catch (e) {
     console.log(e.message);
     return res.status(500).json({ message: e.message });
@@ -89,20 +93,38 @@ const logoutUser = async (req, res) => {
 };
 
 const refreshAccessToken = async (req, res) => {
-  try {
-    const refreshToken = req.cookies?.refreshToken || req.body?.refreshToken; // ✅ Get token from cookies
+  // const refreshToken = req.cookies?.refreshToken || req.body?.refreshToken; // ✅ Get token from cookies
+  let refreshToken;
 
+  // Check body for refreshToken (sent via headers or body)
+  if (req.body.refreshToken) {
+    refreshToken = req.body.refreshToken;
+    console.log('Refresh token from body:', refreshToken);
+  }
+
+  // Fallback to cookie
+  if (!refreshToken && req.cookies.refreshToken) {
+    refreshToken = req.cookies.refreshToken;
+    console.log('Refresh token from cookie:', refreshToken);
+  }
+
+  if (!refreshToken) {
+    return res.status(400).json({ error: 'No refresh token provided' });
+  }
+
+  try {
     const { accessToken } = await refreshAccessTokenService(refreshToken);
 
     const options = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Enable in a production environment with HTTPS
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      path: '/',
+      secure: process.env.NODE_ENV === "production", // Enable in a production environment with HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
     };
+    
     res.cookie("accessToken", accessToken, options);
 
-    return res.status(200).json({ message: "Access token refreshed" });
+    return res.status(200).json({ accessToken, message: "Access token refreshed" });
   } catch (e) {
     console.log(e.message);
     return res.status(500).json({ message: e.message });
