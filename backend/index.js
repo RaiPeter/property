@@ -35,7 +35,7 @@ mongoose.connect(process.env.DB_CONNECTION)
 
 app.use(express.urlencoded({ extended : true }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public/property-images/')));
 app.use(cookieParser());
 
 app.use('/auth', auth);
