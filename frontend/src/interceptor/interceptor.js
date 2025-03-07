@@ -9,7 +9,7 @@ const getBaseUrl = () => {
 
 const axiosInstance = axios.create({
     baseURL: getBaseUrl(),
-    timeout: 5000,
+    timeout: 30000,
     withCredentials: true, 
 })
 

@@ -27,6 +27,8 @@ const registerUser = async (req, res, next) => {
 
 const loginUser = async (req, res) => {
   try {
+    console.log('Request headers:', req.headers);
+  console.log('Request body:', req.body);
     const { email, password } = req.body;
     if (!(email && password)) {
       return res.status(400).json({ message: "All inputs are required." });
