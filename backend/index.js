@@ -46,6 +46,13 @@ app.use(express.json());
 // app.use(express.static(path.join(__dirname, 'public/property-images/')));
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} - Headers:`, req.headers);
+  res.on('finish', () => {
+    console.log(`Response Headers:`, res.getHeaders());
+  });
+  next();
+});
 app.use('/auth', auth);
 app.use('/api', property)
 
