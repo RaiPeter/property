@@ -4,7 +4,7 @@ import store from '../store';
 
 const getBaseUrl = () => {
     // Use environment variable to determine the base URL
-    return process.env.API_URL || 'http://localhost:8000'; // Default for development
+    return process.env.REACT_APP_API_URL || 'http://localhost:8000'; // Default for development
   };
 
 const axiosInstance = axios.create({
