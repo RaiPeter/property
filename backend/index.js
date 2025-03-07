@@ -22,10 +22,12 @@ let corsOptions = {
   },
   credentials: true, // Must be true to allow cookies
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'], // Explicitly allow methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow common headers
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], // Allow common headers
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
 
 mongoose.connect(process.env.DB_CONNECTION)
 .then(() => console.log("MongoDB Connected! 📍"))
