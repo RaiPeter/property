@@ -26,7 +26,8 @@ const Login = () => {
 
       // Cookies.set("accessToken", accessToken);
       // Cookies.set("refreshToken", refreshToken);
-      console.log(auth,'auth');
+      // console.log(auth,'auth');
+      console.log('Login User Data:', data);
       dispatch(loginUser(data));
       console.log(auth);
 

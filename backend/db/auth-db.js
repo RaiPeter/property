@@ -8,7 +8,7 @@ const findUserById = async (id) => {
   return await User.findById(id).select("-password -refreshToken");
 };
 const findUserByIdRefreshToken = async (id) => {
-  return await User.findById(id).select("-password");
+  return await User.findById(id).select("email username role refreshToken");
 };
 
 const findUserByEmail = async (email) => {

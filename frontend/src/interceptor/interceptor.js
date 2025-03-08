@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loginUser, logoutAndClearSession } from '../features/slices/authSlice';
+import { setUser, logoutAndClearSession } from '../features/slices/authSlice';
 import store from '../store';
 
 const getBaseUrl = () => {
@@ -42,27 +42,33 @@ axiosInstance.interceptors.response.use(
             try {
                 // const refreshToken = Cookies.get('refreshToken');
                 const state = store.getState();
-                const refreshToken = state.auth.user?.refreshToken || localStorage.getItem('refreshToken');
-                const { data } = await axiosInstance.post("/auth/refresh", { refreshToken });
+                const refreshToken = state.auth.user?.refreshToken;
+                if (!refreshToken) {
+                    throw new Error('No refresh token available');
+                  }
+                console.log('Sending Refresh Token:', refreshToken);
+                const {data}  = await axiosInstance.post("/auth/refresh", { refreshToken });
                 console.log("Refresh Token Success:", data);
-
-                store.dispatch(setUser({
-                    ...state.auth.user,
+                const currentUser = state.auth.user || { accessToken: null, refreshToken: null, loggedInUser: {} };
+                const updatedUser = {
+                  ...currentUser,
                     accessToken: data.accessToken,
-                    // refreshToken: data.refreshToken,
-                  }));
+                  };
+
+                store.dispatch(setUser(updatedUser));
           
                   // Update localStorage as a fallback
-                  localStorage.setItem('accessToken', data.accessToken);
+                //   localStorage.setItem('accessToken', data.accessToken);
                 //   localStorage.setItem('refreshToken', data.refreshToken);
 
                 // if (data) {
                 //     store.dispatch(loginUser({ user: data.user }));
                 // }
                 originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+                console.log('Retrying request with new token:', originalRequest.headers.Authorization);
                 return axiosInstance(originalRequest);
             } catch (error) {
-                console.error('Refresh token expired. Logging out...');
+                console.error('Refresh token expired. Logging out...',error);
                 
                 // Clear Redux state and logout user
                 store.dispatch(logoutAndClearSession());

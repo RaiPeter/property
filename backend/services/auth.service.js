@@ -87,7 +87,10 @@ const refreshAccessTokenService = async (refreshToken) => {
       refreshToken,
       process.env.REFRESH_TOKEN_KEY
     );
-    console.log(decodedToken, "decoded token");
+    console.log(process.env.REFRESH_TOKEN_KEY, "refresh key");
+    
+    console.log('JWT Verification Success:', true);
+    console.log('Decoded Token:', decodedToken);
 
     // Find the user associated with the refresh token
     const user = await findUserByIdRefreshToken(decodedToken?.id);
@@ -100,6 +103,7 @@ const refreshAccessTokenService = async (refreshToken) => {
 
     // If the stored refresh token doesn't match the incoming one, deny access with a 401 Unauthorized status
     if (user?.refreshToken !== refreshToken) {
+      console.log('Token mismatch detected');
       throw new Error("Refresh token is incorrect");
     }
 

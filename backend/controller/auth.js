@@ -114,7 +114,8 @@ const refreshAccessToken = async (req, res) => {
 
   try {
     const { accessToken } = await refreshAccessTokenService(refreshToken);
-
+    console.log("access token refreshed", accessToken);
+    
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Enable in a production environment with HTTPS

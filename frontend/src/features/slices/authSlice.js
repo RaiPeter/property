@@ -15,9 +15,11 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user = { ...state.user, ...action.payload };
       if (state.user && state.user.accessToken) {
         state.isAuthenticated = true;
+      } else {
+        state.isAuthenticated = false;
       }
     },
     logoutUser: (state) => {
@@ -30,18 +32,31 @@ const authSlice = createSlice({
 export const { loginUser, setUser, logoutUser } = authSlice.actions;
 
 // Verify if the user is authenticated
-export const verifyAuth = () => async (dispatch) => {
+export const verifyAuth = () => async (dispatch,getState) => {
   console.log("Verifying authentication...");
 
   try {
     const { data } = await axiosInstance.post("/auth/verify-token");
     console.log("Verification successful:", data);
-    
-    // dispatch(loginUser({ user: data.user}));
+    const state = getState();
+    const currentUser = state.auth.user || { accessToken: null, refreshToken: null, loggedInUser: {} };
+
+    const updatedUser = {
+      ...currentUser, // Preserve accessToken, refreshToken
+      loggedInUser: {
+        ...currentUser.loggedInUser, // Preserve existing loggedInUser data
+        ...data.user,               // Merge verified user data (e.g., userId, email)
+      },
+    };
+    dispatch(setUser(updatedUser));
   } catch (error) {
     console.error("Verification failed. Trying refresh:", error);
-    // dispatch(refreshTokenAndRetry());
-  }
+    if (!error.response || error.response.status !== 401) {
+      // Handle non-401 errors (e.g., network issues)
+      console.error("Non-401 error during verification:", error.message);
+      // dispatch(logoutUser());
+      // window.location.href = '/';
+    }  }
 };
 
 // Logout user and clear session
@@ -52,5 +67,6 @@ export const logoutAndClearSession = () => async (dispatch) => {
     console.error("Logout failed:", error);
   }
   dispatch(logoutUser());
+  // window.location.href = '/';
 };
 export default authSlice.reducer;
