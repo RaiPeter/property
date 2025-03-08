@@ -57,7 +57,7 @@ const getEmbedMapUrl = async (inputUrl) => {
     return null;
   };
 
-  const expandShortUrl = async (shortUrl, maxRedirects = 5, totalTimeoutMs = 10000) => {
+  const expandShortUrl = async (shortUrl, maxRedirects = 5, totalTimeoutMs = 90000) => {
     let currentUrl = shortUrl;
     let redirects = 0;
 
@@ -75,7 +75,7 @@ const getEmbedMapUrl = async (inputUrl) => {
             "Connection": "keep-alive",
             "Upgrade-Insecure-Requests": "1"
           },
-          timeout: 2000
+          timeout: 10000
         };
 
         console.log("Making request to:", url);
