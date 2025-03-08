@@ -1,7 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router"; // Fixed import syntax
 import "./Dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
-import axiosInstance from "./interceptor/interceptor";
 import { logoutAndClearSession } from "./features/slices/authSlice";
 import { useEffect, useState, useRef } from "react";
 import Logo from "./assets/Landify.png";
@@ -64,8 +63,10 @@ export function Dashboard() {
       isDarkMode ? "dark" : "light"
     );
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-    if (auth?.user?.username) {
-      setCurrentUser(auth.user.username);
+    console.log(auth, "asdfsd");
+    
+    if (auth?.loggedInUser?.username) {
+      setCurrentUser(auth.loggedInUser.username);
     }
   }, [isDarkMode, auth]);
 
